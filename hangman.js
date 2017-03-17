@@ -11,6 +11,8 @@
   var space;              // Number of spaces in word '-'
   var userGuess = [];          // hols user guess to display to page
 
+  var accepted = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z', ' '];
+
   // Get elements
   var showLives = document.getElementById("mylives");
   var userGuessSection = document.getElementById("userGuess");
@@ -18,7 +20,7 @@
   userEvent();
 
   // Create guesses ul
-   result = function () {
+  function result() {
     //li _ that will hold correct user guesses on the screen
     wordHolder = document.getElementById('hold');
     correct = document.createElement('ul');
@@ -58,24 +60,28 @@
   function userEvent(){
     document.onkeyup = function(event) {
       var guess = String.fromCharCode(event.keyCode).toLowerCase();
-      for (var i = 0; i < word.length; i++) {
-        if (word[i] === guess) {
-            guesses[i].innerHTML = guess;
-            counter += 1;
-            } 
-          }
-        var j = (word.indexOf(guess));
-        if (j === -1) {
-          lives -= 1;
-          comments();
-        } else {
-          comments();
-          }
-        userGuess.push(guess);
-        console.log(userGuess);
-
-        userGuessSection.innerHTML = userGuess;
+      if(accepted.includes(guess)){
+        if(userGuess.indexOf(guess) == -1){
+          for (var i = 0; i < word.length; i++) {
+            //replace word guess space with correct letter
+            if (word[i] === guess) {
+                guesses[i].innerHTML = guess;
+                counter += 1;
+                } 
+          } 
+            var j = (word.indexOf(guess));
+            if (j === -1) {
+              lives -= 1;
+              comments();
+            } else {
+              comments();
+              }
+            userGuess.push(guess);
+            console.log(userGuess);
+            userGuessSection.innerHTML = userGuess; 
         }
+      }
+    } 
   }
   
     
@@ -99,4 +105,8 @@
 
   play();
   
+}
+
+function reset(){
+//triggered when comment won or loss
 }
