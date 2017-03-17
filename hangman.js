@@ -1,91 +1,102 @@
+ function loadFunction() {
 
-var wordLib = ["quinoa", "bespoke", "sushi", "sustainable", "totally", "rush", "frappuccino"];
+  
+  var categories;         // Array of topics
+  var chosenCategory;     // Selected catagory
+  var word ;              // Selected word
+  var guess ;             // Guess
+  var guesses = [ ];      // Stored guesses
+  var lives ;             // Lives
+  var counter ;           // Count correct guesses
+  var space;              // Number of spaces in word '-'
+  var userGuess = [];          // hols user guess to display to page
 
-//pull a word from the wordbank
-var wordLibLength = wordLib.length; //library could be an array of words. 
-    var livesCounter = 5;
-	var playerWord = "";
-	var letterArray= "";
+  // Get elements
+  var showLives = document.getElementById("mylives");
+  var userGuessSection = document.getElementById("userGuess");
 
-function selectWord(){
-        
-    //select word from array wordLib
-    playerWord = wordLib[Math.floor(Math.random()* 7)];
-        
-    //turn the playerWord into an array
-    letterArray = playerWord.split("");
-    console.log(letterArray);
+  userEvent();
 
-    var wordLength = letterArray.length;
-    //console.log(wordLength);
+  // Create guesses ul
+   result = function () {
+    //li _ that will hold correct user guesses on the screen
+    wordHolder = document.getElementById('hold');
+    correct = document.createElement('ul');
 
-        
+    for (var i = 0; i < word.length; i++) {
+      correct.setAttribute('id', 'my-word');
+      guess = document.createElement('li');
+      guess.setAttribute('class', 'guess');
+      if (word[i] === "-") {
+        guess.innerHTML = "-";
+        space = 1;
+      } else {
+        guess.innerHTML = "_";
+      }
 
-    var wordPlaceHolder = document.getElementById("wordSpace");
-
-    //loop through length of the selected word to place a '_' where a letter would go
-    for (var i = 0; i < wordLength; i++){
-            //make a variable that creates a div. this placeholder will get overwritten with each iteration of the loop. 
-          var newSpan = document.createElement("span");
-          
-          //sets the value of the innerHTML of the div to the array at index
-          newSpan.innerHTML = "_ ";
-
-          //adds the value of index to the page without losing the previous responses. 
-          var addHashtag = wordPlaceHolder.appendChild(newSpan);
-          //console.log(addHashtag);
+      guesses.push(guess);
+      wordHolder.appendChild(correct);
+      correct.appendChild(guess);
     }
-};
-
-var userGuessArr = []; //ASK WHY THIS HAS TO BE GLOBAL TO CONSOLE CORRECTLY
-//looking at user input to start the game
-document.onkeyup = function(event) {
-	
-	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
-	console.log(userGuess);
-	
-	userGuessArr.push(userGuess);
-	console.log(userGuessArr);
-
-	showInstruction();
-
-	//check if userGuess is in the playerword
-	 // function checkLives(){
-	 // 	var test = playerWord.includes(userGuess);
-	 // 	if (test == true){
-	 // 	alert("One letter right");
-		// } else {
-		//  	livesCounter--;
-		// }
-};
+  }
+  
+  // Show lives
+   comments = function () {
+    showLives.innerHTML = "You have " + lives + " lives";
+    if (lives < 1) {
+      showLives.innerHTML = "Game Over";
+    }
+    for (var i = 0; i < guesses.length; i++) {
+      if (counter + space === guesses.length) {
+        showLives.innerHTML = "You Win!";
+      }
+    }
+  }
 
 
-	
+  //onkeyup function
+  function userEvent(){
+    document.onkeyup = function(event) {
+      var guess = String.fromCharCode(event.keyCode).toLowerCase();
+      for (var i = 0; i < word.length; i++) {
+        if (word[i] === guess) {
+            guesses[i].innerHTML = guess;
+            counter += 1;
+            } 
+          }
+        var j = (word.indexOf(guess));
+        if (j === -1) {
+          lives -= 1;
+          comments();
+        } else {
+          comments();
+          }
+        userGuess.push(guess);
+        console.log(userGuess);
 
-	//each userGuess, loop through
-	// for(var i = 0; i < letterArray.length; i++ ){
-		
-	// } 
+        userGuessSection.innerHTML = userGuess;
+        }
+  }
+  
+    
+  // Play
+  play = function () {
+    categories = ["quinoa", "bespoke", "sushi", "sustainable", "totally", "rush", "frappuccino"];
 
 
+    word = categories[Math.floor(Math.random() * categories.length)];
+    word = word.replace(/\s/g, "-");
+    console.log(word);
+    //buttons();
 
-//show instruction, "press any alpha character, space, or dash to start your guess". after first hit, hide instruction
-function showInstruction() {
-	document.getElementById("instructions").innerHTML= "Press any alpha-key, 'space', or 'dash' to make a guess";
+    guesses = [ ];
+    lives = 10;
+    counter = 0;
+    space = 0;
+    result();
+    comments();
+  }
+
+  play();
+  
 }
-
-
-//hide word but leave underline 
-
-//user guesses letter and triggers onkeyup
-
-// if guess is correct, 
-	// show letter from the hidden word list
-	// if letters remaining counter = 0 , or no hidden letters, alert you win
-
-// if guess is incorrect;
-	// add letter to the letters guessed array - push, pop
-	// decrease lives counter by 1
-	// if lives remaining = 0, alert you lose
-
-// 

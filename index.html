@@ -11,30 +11,35 @@
 	<link rel="stylesheet" type="text/css" href="assets/style.css">
 
 </head>
-<body onload="selectWord()">
-	<main class="container">
-		<div class="row">
-			<!-- left smaller section -->
-			<aside class="col-md-4">
-				<p>Lives:<span id="livesCounter"></span></p>
-				<p>Letters Guessed:</p>
-			</aside>
-			
-			<!-- right smaller section -->
-			<section class="col-md-8">
-				<p id="instructions"> Press any key to start the game.</p>
+  </head>
 
-				<div id="wordSpace"></div>
-			</section>
-		</div>
-	</main>
-	
+  <body onload="loadFunction()">
 
+   <div class="container">
+	   <h1>Hangman</h1>
 
-	<!-- Latest compiled and minified JavaScript -->
-	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
-	
-	<!-- personal js file -->
-	<script type="text/javascript" src="hangman.js"></script>
+	    <p>Use the alphabet below to guess the word, or click hint to get a clue. </p>
+	</div>
+	<div class="container">
+    
+	    <div id="buttons">
+	    </div> <!-- not relevant w onkeyup command --> 
+	    <p id="catagoryName"></p>
+	    <div id="hold">
+    </div>
+    <p id="mylives"></p>
+    
+    <div>
+      <p>You tried the following letters:</p>
+      <p id="userGuess"></p>
+    </div>
+    <div class="container">
+      <button id="hint">Hint</button>
+      <button id="reset">Play again</button>
+    </div>
+</div>
+    
+   <script src="hangman.js"></script>
+
 </body>
 </html>
