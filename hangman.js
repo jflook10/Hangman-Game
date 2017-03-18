@@ -16,6 +16,7 @@
   // Get elements
   var showLives = document.getElementById("mylives");
   var userGuessSection = document.getElementById("userGuess");
+  var gameImage = document.getElementsByClassName("gameImage");
 
   userEvent();
 
@@ -44,13 +45,13 @@
   
   // Show lives
    comments = function () {
-    showLives.innerHTML = "You have " + lives + " lives";
+    showLives.innerHTML = "You have " + lives + " guesses remaining";
     if (lives < 1) {
-      showLives.innerHTML = "Game Over";
+      showLives.innerHTML = "Boo, none for you Glen Coco. Refresh the page to try again.";
     }
     for (var i = 0; i < guesses.length; i++) {
       if (counter + space === guesses.length) {
-        showLives.innerHTML = "You Win!";
+        showLives.innerHTML = "Ace! You got your fancy drink and a nod of approval. Refresh the page to play again.";
       }
     }
   }
@@ -87,13 +88,11 @@
     
   // Play
   play = function () {
-    categories = ["quinoa", "bespoke", "sushi", "sustainable", "totally", "rush", "frappuccino"];
-
+    categories = ["quinoa", "bespoke", "sushi", "sustainable", "totally", "rush", "frappuccino", "lulu lemon", "greek life", "leggings", "juice cleanse"];
 
     word = categories[Math.floor(Math.random() * categories.length)];
-    word = word.replace(/\s/g, "-");
+    word = word.replace(/\s/g, " ");
     console.log(word);
-    //buttons();
 
     guesses = [ ];
     lives = 10;
